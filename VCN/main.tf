@@ -1,4 +1,4 @@
-# 🔹 Create VCN
+# Create VCN
 resource "oci_core_vcn" "my_vcn" {
   compartment_id = var.compartment_id
   cidr_block     = var.vcn_cidr
@@ -6,14 +6,14 @@ resource "oci_core_vcn" "my_vcn" {
   dns_label      = "myvcn"
 }
 
-# 🔹 Create Internet Gateway
+# Create Internet Gateway
 resource "oci_core_internet_gateway" "my_igw" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.my_vcn.id
   display_name   = "InternetGateway"
 }
 
-# 🔹 Create Public Route Table
+# Create Public Route Table
 resource "oci_core_route_table" "public_rt" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.my_vcn.id
@@ -26,14 +26,14 @@ resource "oci_core_route_table" "public_rt" {
   }
 }
 
-# 🔹 Create Private Route Table (No Internet Access)
+# Create Private Route Table (No Internet Access)
 resource "oci_core_route_table" "private_rt" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.my_vcn.id
   display_name   = "PrivateRouteTable"
 }
 
-# 🔹 Create Public Security List (Allow SSH, HTTP, HTTPS)
+# Create Public Security List (Allow SSH, HTTP, HTTPS)
 resource "oci_core_security_list" "public_security_list" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.my_vcn.id
@@ -72,7 +72,7 @@ resource "oci_core_security_list" "public_security_list" {
   }
 }
 
-# 🔹 Create Private Security List (Allow Internal VCN Communication)
+#  Create Private Security List (Allow Internal VCN Communication)
 resource "oci_core_security_list" "private_security_list" {
   compartment_id = var.compartment_id
   vcn_id         = oci_core_vcn.my_vcn.id
@@ -89,7 +89,7 @@ resource "oci_core_security_list" "private_security_list" {
   }
 }
 
-# 🔹 Create Public Subnet
+#  Create Public Subnet
 resource "oci_core_subnet" "public_subnet" {
   compartment_id        = var.compartment_id
   vcn_id               = oci_core_vcn.my_vcn.id
@@ -101,7 +101,7 @@ resource "oci_core_subnet" "public_subnet" {
   prohibit_public_ip_on_vnic = false
 }
 
-# 🔹 Create Private Subnet
+#  Create Private Subnet
 resource "oci_core_subnet" "private_subnet" {
   compartment_id        = var.compartment_id
   vcn_id               = oci_core_vcn.my_vcn.id
